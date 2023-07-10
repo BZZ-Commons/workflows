@@ -1,0 +1,25 @@
+name: GitHub Classroom autograding only
+
+on: [push]
+
+env:
+  DEVOPS_DIR: devops
+  GHSECRET: ${{ secrets.GITHUB_TOKEN }}
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  grading:
+    # autograding an assignment in GitHub Classroom
+    # does not run for the first push by the classroom bot
+    if: ${{ !contains(github.actor, 'classroom') }}
+    name: Autograding
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        # checkout the content of the repository
+      - uses: education/autograding@v1
+        # run the test cases in .github/classroom/autograding.json

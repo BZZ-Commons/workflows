@@ -1,0 +1,19 @@
+name: GitHub Classroom setup
+
+on: workflow_call
+
+env:
+  DEVOPS_DIR: devops
+  GHSECRET: ${{ secrets.GITHUB_TOKEN }}
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  copy-issues:
+    name: copy issues
+    steps:
+      run: |
+        echo "it's alive"

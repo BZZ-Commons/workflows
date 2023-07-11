@@ -3,6 +3,9 @@ name: GitHub Classroom setup
 on: 
   workflow_call:
     inputs:
+      GHSECRET:
+        required: true
+        type: string
       SOURCE_REPO:
         required: true
         type: string

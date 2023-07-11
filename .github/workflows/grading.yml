@@ -2,10 +2,6 @@ name: GitHub Classroom autograding and update moodle
 
 on: 
   workflow_call:
-    inputs:
-      TARGET_REPO:
-        required: true
-        type: string
 env:
   DEVOPS_DIR: devops
   GHSECRET: ${{ secrets.GITHUB_TOKEN }}

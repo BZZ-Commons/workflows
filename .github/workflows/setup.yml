@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: ${{ env.SCRIPT_REPO }}
-          path: ${{ env.DEVOPS_DIR }}
+          path: ${{ inputs.DEVOPS_DIR }}
       - name: Copy the Issues
-        run: python ${{ env.DEVOPS_DIR }}/issues.py
+        run: python ${{ inputs.DEVOPS_DIR }}/issues.py
         shell: sh

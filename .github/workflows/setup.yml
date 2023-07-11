@@ -13,13 +13,13 @@ on:
         required: true
         type: string
     secrets:
-      GITHUB_TOKEN:
+      GHSECRET:
         required: true
 
 env:
   DEVOPS_DIR: devops
   SCRIPT_REPO: BZZ-Commons/copy-issues
-  GHSECRET: ${{ secrets.GITHUB_TOKEN }}
+  GHSECRET: ${{ secrets.GHSECRET }}
   SOURCE_REPO: ${{ inputs.SOURCE_REPO }}
   TARGET_REPO: ${{ inputs.TARGET_REPO }}
   ADD_LABELS: ${{ inputs.ADD_LABELS }}

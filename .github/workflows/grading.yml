@@ -1,6 +1,14 @@
 name: GitHub Classroom autograding and update moodle
 
-on: workflow_call
+on: 
+  workflow_call:
+    inputs:
+      TARGET_REPO:
+        required: true
+        type: string
+    secrets:
+      GHSECRET:
+        required: true
 
 env:
   DEVOPS_DIR: devops
@@ -22,6 +30,7 @@ jobs:
       - uses: education/autograding@v1
         # run the test cases in .github/classroom/autograding.json
         id: autograding
+        with: ${{ env.TARGET_REPO }}
       - name: grade-moodle-assignment
         # grade the assignment in Moodle, runs even after an error in autograding
         if: always()

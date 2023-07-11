@@ -6,10 +6,6 @@ on:
       TARGET_REPO:
         required: true
         type: string
-    secrets:
-      GHSECRET:
-        required: true
-
 env:
   DEVOPS_DIR: devops
   GHSECRET: ${{ secrets.GITHUB_TOKEN }}

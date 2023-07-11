@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   copy-issues:
-    # copy all issues from the template to the students repo
+    # copy all issues from the source repo to the students repo
     env:
       SCRIPT_REPO: BZZ-Commons/copy-issues
       SOURCE_REPO: BZZ-Commons/copy-issues  # TODO set the owner/name of the source repo

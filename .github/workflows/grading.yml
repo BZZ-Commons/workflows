@@ -2,6 +2,11 @@ name: GitHub Classroom autograding and update moodle
 
 on: 
   workflow_call:
+    inputs:
+      MOODLE:
+        default: false
+        required: false
+        type: boolean
 env:
   DEVOPS_DIR: devops
   GHSECRET: ${{ secrets.GITHUB_TOKEN }}
@@ -24,7 +29,7 @@ jobs:
         id: autograding
       - name: grade-moodle-assignment
         # grade the assignment in Moodle, runs even after an error in autograding
-        if: always()
+        if: ${{ inputs.MOODLE }}
         run: |
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })

@@ -3,9 +3,6 @@ name: GitHub Classroom setup
 on: 
   workflow_call:
     inputs:
-      GHSECRET:
-        required: true
-        type: string
       SOURCE_REPO:
         required: true
         type: string
@@ -19,6 +16,7 @@ on:
 env:
   DEVOPS_DIR: devops
   SCRIPT_REPO: BZZ-Commons/copy-issues
+  GHSECRET: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
   checks: write

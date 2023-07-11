@@ -12,6 +12,9 @@ on:
       ADD_LABELS:
         required: true
         type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: true
 
 env:
   DEVOPS_DIR: devops

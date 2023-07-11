@@ -3,12 +3,19 @@ name: GitHub Classroom setup
 on: 
   workflow_call:
     inputs:
-      source_repo:
+      SOURCE_REPO:
+        required: true
+        type: string
+      TARGET_REPO:
+        required: true
+        type: string
+      ADD_LABELS:
         required: true
         type: string
 
 env:
   DEVOPS_DIR: devops
+  SCRIPT_REPO: BZZ-Commons/copy-issues
 
 permissions:
   checks: write
@@ -16,10 +23,20 @@ permissions:
   contents: read
 
 jobs:
-  copy-issues:
-    name: copy issues
-    runs-on: ubuntu-latest
-    steps:
-      - name: copy
+    copy-issues:
+      name: CopyIssues
+      runs-on: ubuntu-latest
+      steps:
+      - name: Install dependencies
         run: |
-          echo ${{ inputs.source_repo }}
+          python -m pip install --upgrade pip
+          pip install pyGithub
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Check-out the IssueCopy Repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.SCRIPT_REPO }}
+          path: ${{ env.DEVOPS_DIR }}
+      - name: Copy the Issues
+        run: python ${{ env.DEVOPS_DIR }}/issues.py
+        shell: sh

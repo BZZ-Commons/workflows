@@ -39,5 +39,5 @@ jobs:
           repository: ${{ env.SCRIPT_REPO }}
           path: ${{ env.DEVOPS_DIR }}
       - name: Copy the Issues
-        run: python ${{ inputs.DEVOPS_DIR }}/issues.py
+        run: python ${{ env.DEVOPS_DIR }}/issues.py
         shell: sh

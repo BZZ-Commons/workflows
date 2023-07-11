@@ -26,6 +26,7 @@ env:
 
 permissions:
   checks: write
+  issues: write
   actions: read
   contents: read
 

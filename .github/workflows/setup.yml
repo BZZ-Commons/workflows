@@ -1,10 +1,14 @@
 name: GitHub Classroom setup
 
-on: workflow_call
+on: 
+  workflow_call:
+    inputs:
+      source_repo:
+        required: true
+        type: string
 
 env:
   DEVOPS_DIR: devops
-  GHSECRET: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
   checks: write
@@ -18,4 +22,4 @@ jobs:
     steps:
       - name: copy
         run: |
-          echo "it's alive"
+          echo ${{ inputs.source_repo }}

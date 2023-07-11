@@ -14,6 +14,8 @@ permissions:
 jobs:
   copy-issues:
     name: copy issues
+    runs-on: ubuntu-latest
     steps:
-      run: |
-        echo "it's alive"
+      - name: copy
+        run: |
+          echo "it's alive"

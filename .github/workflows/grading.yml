@@ -31,7 +31,7 @@ jobs:
         # grade the assignment in Moodle, runs even after an error in autograding
         if: ${{ inputs.MOODLE }}
         run: |
-          feedback=${{ steps.autograding.outputs.Feedback }}
+          feedback="${{ steps.autograding.outputs.Feedback }}"
           #grade=${{ steps.autograding.outputs.Points }}
           #parts=(${grade//\// })
           #points="points=${parts[0]}"

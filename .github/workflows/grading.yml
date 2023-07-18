@@ -31,6 +31,7 @@ jobs:
         # grade the assignment in Moodle, runs even after an error in autograding
         if: ${{ inputs.MOODLE }}
         run: |
+          feedback=${{ steps.autograding.outputs.Feedback }}
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })
           points="points=${parts[0]}"
@@ -45,5 +46,5 @@ jobs:
           
           
           wstoken="wstoken=${{ secrets.MOODLE_TOKEN }}"
-          url="${{ vars.MOODLE_URL}}?$wstoken&$wsfunction&$assignment&$user&$points"
+          url="${{ vars.MOODLE_URL}}?$wstoken&$wsfunction&$assignment&$user&$points&feedback=$feedback"
           curl $url

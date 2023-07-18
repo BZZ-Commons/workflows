@@ -49,4 +49,4 @@ jobs:
           body="$assignment&$user&$points&feedback=$feedback"
           curl -X POST ${{ vars.MOODLE_URL}}?$wstoken&$wsfunction
                -H "Content-Type: application/x-www-form-urlencoded"
-               -d $body
+               --ddata-urlencode $body

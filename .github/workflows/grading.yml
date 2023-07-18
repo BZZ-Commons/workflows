@@ -32,20 +32,22 @@ jobs:
         if: ${{ inputs.MOODLE }}
         run: |
           feedback="${{ steps.autograding.outputs.Feedback }}"
-          #grade=${{ steps.autograding.outputs.Points }}
-          #parts=(${grade//\// })
-          #points="points=${parts[0]}"
-          #user="user_name=${{ github.actor }}"
-          #wsfunction="wsfunction=local_gradeassignments_update_grade"
+          grade=${{ steps.autograding.outputs.Points }}
+          parts=(${grade//\// })
+          points=${parts[0]"
+          user=${{ github.actor }}
           
-          #repofull=${{ github.repository }}
-          #parts=(${repofull//\// })
-          #reponame=${parts[1]}
-          #template="${reponame/"-${{ github.actor }}"/""}"
-          #assignment="assignment_name=$template"
+          repofull=${{ github.repository }}
+          parts=(${repofull//\// })
+          reponame=${parts[1]}
+          template="${reponame/"-${{ github.actor }}"/""}"
+          assignment=$template
                     
-          #wstoken="wstoken=${{ secrets.MOODLE_TOKEN }}"
-          #body="$assignment&$user&$points&feedback=$feedback"
-          #curl -X POST ${{ vars.MOODLE_URL}}?$wstoken&$wsfunction
-          #     -H "Content-Type: application/x-www-form-urlencoded"
-          #     --ddata-urlencode $body
+          wstoken="wstoken=${{ secrets.MOODLE_TOKEN }}"
+          wsfunction="wsfunction=local_gradeassignments_update_grade"
+          curl -X POST ${{ vars.MOODLE_URL}}?$wstoken&$wsfunction
+               -H "Content-Type: application/x-www-form-urlencoded"
+               --data-urlencode "assignment_name=$template"
+               --data-urlencode "user_name=$user"
+               --data-urlencode "points=$points"
+               --data-urlencode "feedback=${{ steps.autograding.outputs.Feedback }}"

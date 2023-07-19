@@ -34,6 +34,7 @@ jobs:
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })
           points=${parts[0]}
+          feedback=${{ steps.autograding.outputs.Feedback }}
           user=${{ github.actor }}
           
           repofull=${{ github.repository }}
@@ -44,9 +45,9 @@ jobs:
           token=${{secrets.MOODLE_TOKEN}}
           echo ${{secrets.MOODLE_TOKEN}} | sed 's/./& /g'
                     
-          curl -v -X POST "${{ vars.MOODLE_URL}}?wstoken=$token&wsfunction=local_gradeassignments_update_grade
+          curl -X POST "${{ vars.MOODLE_URL}}?wstoken=$token&wsfunction=local_gradeassignments_update_grade
              -H "Content-Type: application/x-www-form-urlencoded"
              --data-urlencode "assignment_name=$template"
              --data-urlencode "user_name=$user"
              --data-urlencode "points=$points"
-             --data-urlencode "feedback=${{ steps.autograding.outputs.Feedback }}"
+             --data-urlencode "feedback=$feedback"

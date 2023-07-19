@@ -31,6 +31,7 @@ jobs:
         # grade the assignment in Moodle, runs even after an error in autograding
         if: ${{ inputs.MOODLE }}
         run: |
+          #!/bin/bash
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })
           points=${parts[0]}

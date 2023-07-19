@@ -57,4 +57,4 @@ jobs:
              --data "$assignment" \
              --data "$user" \
              --data "$points" \
-             --data-urlencode '$feedback'
+             --data-urlencode $feedback

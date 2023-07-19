@@ -38,23 +38,19 @@ jobs:
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })
           points="points=${parts[0]}"
-          echo "$points"
           messages='${{ steps.autograding.outputs.Messages }}'
-          echo $messages
           feedback="feedback=${messages//\"/\\\"}"
           echo $feedback
           user="user_name=${{ github.actor }}"
-          echo "$user"
           
           repofull=${{ github.repository }}
           parts=(${repofull//\// })
           reponame=${parts[1]}
           template="${reponame/"-${{ github.actor }}"/""}"
           assignment="assignment_name=$template"
-          echo $assignment
           token=${{secrets.MOODLE_TOKEN}}
                     
-          curl -v -X POST "${{ vars.MOODLE_URL}}?wstoken=$token&wsfunction=local_gradeassignments_update_grade" \
+          curl -X POST "${{ vars.MOODLE_URL}}?wstoken=$token&wsfunction=local_gradeassignments_update_grade" \
              -H "Content-Type: application/x-www-form-urlencoded" \
              --data "$assignment" \
              --data "$user" \

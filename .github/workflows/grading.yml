@@ -37,22 +37,23 @@ jobs:
           fi
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })
-          points=${parts[0]}
-          echo "points=$points"
-          feedback='${{ steps.autograding.outputs.Messages }}'
-          echo "feedback=$feedback"
-          user=${{ github.actor }}
+          points="points=${parts[0]}"
+          echo "$points"
+          feedback='feedback=${{ steps.autograding.outputs.Messages }}'
+          echo "$feedback"
+          user="user_name=${{ github.actor }}"
+          echo "$user"
           
           repofull=${{ github.repository }}
           parts=(${repofull//\// })
           reponame=${parts[1]}
           template="${reponame/"-${{ github.actor }}"/""}"
-          assignment=$template
+          assignment="assignment_name=$template"
           token=${{secrets.MOODLE_TOKEN}}
                     
           curl -X POST "${{ vars.MOODLE_URL}}?wstoken=$token&wsfunction=local_gradeassignments_update_grade
              -H "Content-Type: application/x-www-form-urlencoded"
-             --data-urlencode "assignment_name=$template"
-             --data-urlencode "user_name=$user"
-             --data-urlencode "points=$points"
-             --data-urlencode 'feedback=$feedback'
+             --data $assignment
+             --data $user
+             --data $points
+             --data-urlencode $feedback

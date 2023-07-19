@@ -59,4 +59,4 @@ jobs:
              --data "$assignment" \
              --data "$user" \
              --data "$points" \
-             --data \"$feedback\"
+             --data "$feedback"

@@ -39,7 +39,7 @@ jobs:
           parts=(${grade//\// })
           points=${parts[0]}
           echo "points=$points"
-          feedback=\"${{ steps.autograding.outputs.Messages }}\"
+          feedback=${{ steps.autograding.outputs.Messages }}
           echo "feedback=$feedback"
           user=${{ github.actor }}
           

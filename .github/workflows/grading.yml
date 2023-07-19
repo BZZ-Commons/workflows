@@ -33,7 +33,7 @@ jobs:
         run: |
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })
-          points=${parts[0]"
+          points=${parts[0]}
           user=${{ github.actor }}
           
           repofull=${{ github.repository }}

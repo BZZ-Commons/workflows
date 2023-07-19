@@ -35,7 +35,7 @@ jobs:
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })
           points=${parts[0]}
-          feedback="${{ steps.autograding.outputs.Feedback }}"
+          feedback="${{ steps.autograding.outputs.Messages }}"
           user=${{ github.actor }}
           
           repofull=${{ github.repository }}
@@ -50,4 +50,4 @@ jobs:
              --data-urlencode "assignment_name=$template"
              --data-urlencode "user_name=$user"
              --data-urlencode "points=$points"
-             --data "feedback=$feedback"
+             --data-urlencode "feedback=$feedback"

@@ -35,7 +35,7 @@ jobs:
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })
           points=${parts[0]}
-          feedback=${{ steps.autograding.outputs.Feedback }}
+          feedback="${{ steps.autograding.outputs.Feedback }}"
           user=${{ github.actor }}
           
           repofull=${{ github.repository }}

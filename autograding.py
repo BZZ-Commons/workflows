@@ -5,8 +5,15 @@ from tkinter import filedialog
 
 import pytest
 
+"""
+generates the 'autograding.json' based on the pytests.
+used for the automatic grading in GitHub Classroom.
+"""
 
 class Capturing(list):
+    """
+    captures the output to stdout and stderr
+    """
     def __enter__(self):
         self._stdout = sys.stdout
         sys.stdout = self._stringio = StringIO()
@@ -19,6 +26,10 @@ class Capturing(list):
 
 
 def main():
+    """
+    generate the file
+    :return:
+    """
     root = tk.Tk()
     root.withdraw()
 
@@ -40,10 +51,15 @@ def main():
 
 
 def make_testcase(name):
+    """
+    make the json for one testcase
+    :param name:
+    :return:
+    """
     testcase = '{' \
                f'"name": "{name}",\n' \
                f'"setup": "sudo -H pip3 install -r requirements.txt",\n' \
-               f'"run": "pytest -v  -k \"{name}\"",\n' \
+               f'"run": "pytest -v  -k \\"{name}\\"",\n' \
                f'"input": "",\n' \
                f'"output": "",\n' \
                f'"comparison": "included",\n' \

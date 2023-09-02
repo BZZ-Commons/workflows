@@ -1,5 +1,5 @@
 import sys
-import tkinter as tk
+import tkinter
 from io import StringIO
 from tkinter import filedialog
 
@@ -30,7 +30,7 @@ def main():
     generate the file
     :return:
     """
-    root = tk.Tk()
+    root = tkinter.Tk()
     root.withdraw()
 
     project_folder = filedialog.askdirectory()
@@ -39,8 +39,9 @@ def main():
         pytest.main(args)
     json = '{\n"tests": [\n'
     for line in output:
-        if line.startswith('  <Function'):
-            name = line[12:-1]
+        if '<Function' in line:
+            line = line.lstrip()
+            name = line[10:-1]
             json += make_testcase(name) + ',\n'
 
     json = json[0:-2]

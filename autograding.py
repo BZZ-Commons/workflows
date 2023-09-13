@@ -37,13 +37,18 @@ def main():
     args = f'{project_folder} --collect-only'.split(' ')
     with Capturing() as output:
         pytest.main(args)
+    print(output)
     json = '{\n"tests": [\n'
     for line in output:
         if '<Function' in line:
             line = line.lstrip()
             name = line[10:-1]
             json += make_testcase(name) + ',\n'
-
+    for line in output:
+        if '<TestCaseFunction' in line:
+            line = line.lstrip()
+            name = line[18:-1]
+            json += make_testcase(name) + ',\n'
     json = json[0:-2]
     json += '\n]\n}'
     file = open(project_folder + '/.github/classroom/autograding2.json', 'w')

@@ -44,8 +44,7 @@ def main():
             line = line.lstrip()
             name = line[10:-1]
             json += make_testcase(name) + ',\n'
-    for line in output:
-        if '<TestCaseFunction' in line:
+        elif '<TestCaseFunction' in line:
             line = line.lstrip()
             name = line[18:-1]
             json += make_testcase(name) + ',\n'

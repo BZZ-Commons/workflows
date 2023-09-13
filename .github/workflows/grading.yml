@@ -22,7 +22,6 @@ jobs:
     name: Autograding
     runs-on: ubuntu-latest
     steps:
-      - run: apt install python3-tk
       - uses: actions/checkout@v3
         # checkout the content of the repository
       - uses: ghwalin/autograder@master

@@ -39,6 +39,8 @@ jobs:
           grade=${{ steps.autograding.outputs.Points }}
           parts=(${grade//\// })
           points="points=${parts[0]}"
+          maxpoints="max=${parts[1]}"
+          echo $maxpoints
           messages='${{ steps.autograding.outputs.Messages }}'
           feedback="feedback=${messages//\"/\\\"}"
           echo $feedback

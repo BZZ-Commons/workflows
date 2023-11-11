@@ -40,10 +40,8 @@ jobs:
           parts=(${grade//\// })
           points="points=${parts[0]}"
           maxpoints="max=${parts[1]}"
-          echo $maxpoints
           messages='${{ steps.autograding.outputs.Messages }}'
           feedback="feedback=${messages//\"/\\\"}"
-          echo $feedback
           user="user_name=${{ github.actor }}"
           
           repofull=${{ github.repository }}
@@ -58,4 +56,6 @@ jobs:
              --data "$assignment" \
              --data "$user" \
              --data "$points" \
-             --data "$feedback"
+             --data "$feedback" \
+             --data "$maxpoints" \
+             --data "repourl=${{ github.repository }}"

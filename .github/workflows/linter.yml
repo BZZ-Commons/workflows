@@ -1,0 +1,61 @@
+name: GitHub Classroom lint the html code and update moodle
+
+on:
+  workflow_call:
+    inputs:
+      MOODLE:
+        default: false
+        required: false
+        type: boolean
+env:
+  DEVOPS_DIR: devops
+  GHSECRET: ${{ secrets.GITHUB_TOKEN }}
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-lint:
+    if: ${{ !contains(github.actor, 'classroom') }}
+    name: Lint the Code which is committed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+      - name: Lint Code Base
+        uses: super-linter/super-linter/slim@v5
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: "main"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    report-to-moodle:
+      needs: run-lint
+      if: ${{ !contains(github.actor, 'classroom') }}
+      name: Report to Moodle that Linter was successfully
+      runs-on: ubuntu-latest
+      steps:
+        - name: Update assignment in Moodle
+          if: ${{ always() }}
+          run: |
+            user="user_name=${{ github.actor }}"
+            
+            repofull=${{ github.repository }}
+            parts=(${repofull//\// })
+            reponame=${parts[1]}
+            template="${reponame/"-${{ github.actor }}"/""}"
+            assignment="assignment_name=$template"
+            token=${{secrets.MOODLE_TOKEN}}
+            
+            curl -k -X POST "${{ vars.MOODLE_URL}}?wstoken=$token&wsfunction=local_gradeassignments_update_grade" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            --data "$assignment" \
+            --data "$user" \
+            --data "2" \
+            --data "Prüfe die Action im GitHub Repo" \
+            --data "2" \
+            --data "repourl=${{ github.repository }}"

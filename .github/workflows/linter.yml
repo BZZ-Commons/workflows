@@ -55,7 +55,7 @@ jobs:
           -H "Content-Type: application/x-www-form-urlencoded" \
           --data "$assignment" \
           --data "$user" \
-          --data "2" \
-          --data "Prüfe die Action im GitHub Repo" \
-          --data "2" \
+          --data "points=2" \
+          --data "feedback=Prüfe die Action im GitHub Repo" \
+          --data "maxpoints=2" \
           --data "repourl=${{ github.repository }}"

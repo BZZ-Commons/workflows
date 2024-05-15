@@ -57,5 +57,5 @@ jobs:
           --data "$user" \
           --data "points=2" \
           --data "feedback=Prüfe die Action im GitHub Repo" \
-          --data "maxpoints=2" \
+          --data "max=2" \
           --data "repourl=${{ github.repository }}"

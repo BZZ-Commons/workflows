@@ -40,7 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update assignment in Moodle
-        if: ${{ always() }}
         run: |
           user="user_name=${{ github.actor }}"
           

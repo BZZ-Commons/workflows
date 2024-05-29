@@ -59,6 +59,7 @@ jobs:
             points=1
             feedback="Lint meldet Fehler; Prüfe die Action im GitHub Repo"
           fi
+          echo $feedback
           
           curl -k -X POST "${{ vars.MOODLE_URL}}?wstoken=$token&wsfunction=local_gradeassignments_update_grade" \
           -H "Content-Type: application/x-www-form-urlencoded" \

@@ -28,19 +28,20 @@ jobs:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
       - name: Lint Code Base
-        uses: super-linter/super-linter/slim@v5
+        uses: super-linter/super-linter@v6.5.1
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   report-to-moodle:
     needs: run-lint
-    if: ${{ !contains(github.actor, 'classroom') }}
+    if: ${{ always() && !contains(github.actor, 'classroom') }}
     name: Report to Moodle that Linter was successfully
     runs-on: ubuntu-latest
     steps:
+      - name: Output result
+        run: echo ${{ needs.run-lint.result }}
       - name: Update assignment in Moodle
-        if: ${{ always() }}
         run: |
           user="user_name=${{ github.actor }}"
           
@@ -50,12 +51,21 @@ jobs:
           template="${reponame/"-${{ github.actor }}"/""}"
           assignment="assignment_name=$template"
           token=${{secrets.MOODLE_TOKEN}}
+
+          if [ ${{ needs.run-lint.result }} == 'success' ]; then
+            points=2
+            feedback="Lint erfolgreich"
+          else
+            points=1
+            feedback="Lint meldet Fehler; Prüfe die Action im GitHub Repo"
+          fi
+          echo $feedback
           
           curl -k -X POST "${{ vars.MOODLE_URL}}?wstoken=$token&wsfunction=local_gradeassignments_update_grade" \
           -H "Content-Type: application/x-www-form-urlencoded" \
           --data "$assignment" \
           --data "$user" \
-          --data "points=2" \
-          --data "feedback=Prüfe die Action im GitHub Repo" \
+          --data "points=$points" \
+          --data "feedback=$feedback" \
           --data "max=2" \
           --data "repourl=${{ github.repository }}"

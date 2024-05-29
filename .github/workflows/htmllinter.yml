@@ -39,6 +39,8 @@ jobs:
     name: Report to Moodle that Linter was successfully
     runs-on: ubuntu-latest
     steps:
+      - name: Output result
+        run: echo ${{ needs.run-lint.result }}
       - name: Update assignment in Moodle
         run: |
           user="user_name=${{ github.actor }}"

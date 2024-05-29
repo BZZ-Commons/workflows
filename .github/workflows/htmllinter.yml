@@ -31,6 +31,8 @@ jobs:
         uses: super-linter/super-linter/slim@v6
         env:
           VALIDATE_ALL_CODEBASE: false
+          VALIDATE_HTML: true
+          VALIDATE_CSS: true
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   report-to-moodle:

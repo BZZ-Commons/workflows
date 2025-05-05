@@ -49,7 +49,7 @@ jobs:
           reponame=${parts[1]}
           template="${reponame/"-${{ github.actor }}"/""}"
           assignment="assignment_name=$template"
-          token=${{secrets.MOODLE_TOKEN}}
+          token=${{secrets.MOODLE_TOKEN2}}
 
           if [ ${{ needs.run-lint.result }} == 'success' ]; then
             points=2
@@ -60,7 +60,7 @@ jobs:
           fi
           echo $feedback
           
-          curl -k -X POST "${{ vars.MOODLE_URL}}?wstoken=$token&wsfunction=mod_externalassignment_update_grade" \
+          curl -k -X POST "${{ vars.MOODLE_URL}}/webservice/rest/server.php?wstoken=$token&wsfunction=mod_externalassignment_update_grade" \
           -H "Content-Type: application/x-www-form-urlencoded" \
           --data "$assignment" \
           --data "$user" \

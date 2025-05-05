@@ -44,7 +44,6 @@ jobs:
       - name: Update assignment in Moodle
         run: |
           user="user_name=${{ github.actor }}"
-          
           repofull=${{ github.repository }}
           parts=(${repofull//\// })
           reponame=${parts[1]}
@@ -68,4 +67,4 @@ jobs:
           --data "points=$points" \
           --data "feedback=$feedback" \
           --data "max=2" \
-          --data "repourl=${{ github.repository }}"
+          --data "externallink=${{ github.repository }}"
